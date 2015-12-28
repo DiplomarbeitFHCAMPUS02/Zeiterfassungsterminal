@@ -4,26 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SharpNFC;
+using MyCouch;
 
 
 namespace TimeRecordingTerminal
 {
     interface IReader
     {
-        NFCCard Reading();
+        void Reading();
     }
     class Reader
     {
-        protected NFCCard createNFCCard(string UID) //In dieser Methode wird eine neue Instanz erstellt
+        protected NFCCard createNFCCard(string CardNumber) //In dieser Methode wird eine neue Instanz erstellt
         {
-			//Werte werden als Parameter gegeben
-			//Hier wird der Wert den wir bekommen (10-stellig) in drei Unter IDs unterteilt
-			//UID.Substring(Index,Länge) - man bekommt eine Stelle vom Wert und die Länge
-			//diese wird dann durch die Unterteilung an die ID, cardID und StudentID 
-            string ID = UID.Substring(0, 3);
-            string cardID = UID.Substring(3, 3);
-            string StudentID = UID.Substring(6, 4);
-            return new NFCCard(ID, cardID, StudentID, DateTime.Now.ToString("HH:mm:ss"));
+            //"HH:mm:ss:ms"
+            return new NFCCard(CardNumber, DateTime.Now.ToString("yyyy-dd-MM HH:mm:ss.ms"));
 			//Es wird eine neue NFCCard zurückgegeben mit den jeweiligen Werten
         }
     }
@@ -57,9 +52,22 @@ namespace TimeRecordingTerminal
             nfctarget = new SharpNFC.PInvoke.nfc_target();
         }
 
-        public NFCCard Reading()
+        public void Reading()
         {
-            return createNFCCard(getUID(nfctarget));
+            #region Configuration
+            Config config = ConfigReader.getConfig();
+            #endregion
+            #region Database
+            MyCouchClient client = LocalDB.LocalDBClientBuilder(config);
+            #endregion
+            while (true)
+            {
+                NFCCard card = createNFCCard(getUID(nfctarget));
+                if (card != null)
+                {
+                    LocalDB.Transmit(client, card);
+                }
+            }
         }
         private string getUID(SharpNFC.PInvoke.nfc_target _nfctarget)
         {
@@ -74,15 +82,30 @@ namespace TimeRecordingTerminal
     class ConsoleReader : Reader,  IReader
     {
         private string last_UID = "";
-        public NFCCard Reading()
+        public void Reading()
         {
-            last_UID = Console.ReadLine();
-            if (last_UID.Length == 10)
+            #region Configuration
+            Config config = ConfigReader.getConfig();
+            #endregion
+            #region Database
+            MyCouchClient client = LocalDB.LocalDBClientBuilder(config);
+            #endregion
+
+            while (!last_UID.Equals("quit"))
             {
-                return createNFCCard(last_UID);
-                // Console.WriteLine("ID: " + ID + " cardID: " + cardID + " StudentID: " + StudentID);
+                last_UID = Console.ReadLine();
+                if (last_UID.Length == 10)
+                {
+                    NFCCard card = createNFCCard(last_UID);
+                    if (card != null)
+                    {
+                        LocalDB.Transmit(client, card);
+                        Console.WriteLine("Transmitted CardID: " + card.CardNumber + " Time: " + card.time);
+                    }
+                }
+                
             }
-            return null;
+            
         }
 
     }

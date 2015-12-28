@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using MyCouch;
 
 namespace TimeRecordingTerminal
@@ -18,33 +18,25 @@ namespace TimeRecordingTerminal
     {
         static void Main(string[] args)
         {
-            #region Configuration
+
             Config config = ConfigReader.getConfig();
-            #endregion
-            #region Database
-            MyCouchClient client = LocalDB.LocalDBClientBuilder(config);
-            #endregion
-            #region Reader
-            IReader MS_USB;
-            MS_USB = new ConsoleReader();
 
-            NFCCard card;
-
-            string cmd = "";
-            while(cmd != "quit")
-            {
-                cmd = Console.ReadLine();
-                card = MS_USB.Reading();
-                if(card != null)
-                {
-                    LocalDB.Transmit(client, card);
-                    Console.WriteLine("Transmitted CardID: " + card.ID_unique + " Time: " + card.time);
-                }
+            if (config.usbreaderstatus == "true")
+            {             
+                IReader MS_USB = new ConsoleReader();
+                Thread usbThread = new Thread(MS_USB.Reading);
+                usbThread.Start();
             }
+            if (config.pn532status == "true")
+            {
+                IReader pn532 = new ConsoleReader();
+                Thread pn532Thread = new Thread(pn532.Reading);
+                pn532Thread.Start();
+            }
+            while(true)
+            {
 
-            #endregion
-
-
+            }
         }
 
     }
