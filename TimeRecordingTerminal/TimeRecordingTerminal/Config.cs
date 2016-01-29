@@ -20,5 +20,7 @@ namespace TimeRecordingTerminal
 
         public string usbreaderstatus; //IP of Database
 
+        public string targetdbname; //IP of Target Database(for replication, just for testing)
+
     }
 }

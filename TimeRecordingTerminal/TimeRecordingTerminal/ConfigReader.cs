@@ -20,7 +20,7 @@ namespace TimeRecordingTerminal
             temp_config.usbreaderstatus = ConfigurationManager.AppSettings["USBReader"].ToString();
             temp_config.pn532status = ConfigurationManager.AppSettings["PN532Reader"].ToString();
             temp_config.dbname = ConfigurationManager.AppSettings["DBName"].ToString();
-
+            temp_config.targetdbname = ConfigurationManager.AppSettings["targetDBName"].ToString();
             return temp_config;
         }
     }

@@ -11,13 +11,13 @@ namespace TimeRecordingTerminal
 		//In der Klasse NFCCard:
 		//Constructor erstellen
 		//Beim erstellen einer NFCCard Instanz werden mit dem Constructor die Werte festgelegt
-        public NFCCard(string _CardNumber, string _time)
+        public NFCCard(string _Kartennummer, string _time)
         {
-            CardNumber = _CardNumber;
+            Kartennummer = _Kartennummer;
             time = _time;
         }
 
-        public string CardNumber;
+        public string Kartennummer;
         public string time;
         
 

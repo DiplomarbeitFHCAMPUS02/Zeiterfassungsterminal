@@ -10,3 +10,10 @@ C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecor
 C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\MyCouch.Net45.xml
 C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\EntityFramework.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\EntityFramework.xml
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\avahi-sharp.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\Mono.Zeroconf.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\bin\Debug\Mono.Zeroconf.Providers.Bonjour.dll
