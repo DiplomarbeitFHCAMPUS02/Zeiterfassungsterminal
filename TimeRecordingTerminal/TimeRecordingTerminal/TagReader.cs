@@ -16,11 +16,10 @@ namespace TimeRecordingTerminal
     }
     class Reader
     {
-        protected NFCCard createNFCCard(string CardNumber) //In dieser Methode wird eine neue Instanz erstellt
+        //Change 0 to MAC Adress later
+        protected Record createRecord(string Kartennummer)
         {
-            //"HH:mm:ss:ms"
-            return new NFCCard(CardNumber, DateTime.Now.ToString("yyyy-dd-MM HH:mm:ss.ms"));
-			//Es wird eine neue NFCCard zurückgegeben mit den jeweiligen Werten
+            return new Record(Kartennummer, 0, DateTime.Now.ToString("yyyy-dd-MM HH:mm:ss.ms"));
         }
 
     }
@@ -63,12 +62,13 @@ namespace TimeRecordingTerminal
             #endregion
             while (true)
             {
-                NFCCard card = createNFCCard(getUID(nfctarget));
+                /*NFCCard card = createNFCCard(getUID(nfctarget));
                 if (card != null)
                 {
                     LocalDB.Transmit(client, card);
                     LocalDB.replicate(LocalDB.ServerClientBuilder(config), config.dbname, "http://172.16.182.128/test");
                 }
+                */
             }
         }
         private string getUID(SharpNFC.PInvoke.nfc_target _nfctarget)
@@ -99,14 +99,12 @@ namespace TimeRecordingTerminal
                 last_UID = Console.ReadLine();
                 if (last_UID.Length == 10)
                 {
-                    NFCCard card = createNFCCard(last_UID);
-                    if (card != null)
+                    Record record = createRecord(last_UID);
+                    if (record != null)
                     {
-                        card.Kartennummer = correctUID(card.Kartennummer);
-                        LocalDB.Transmit(client, card);
-                        Console.WriteLine("Transmitted CardID: " + card.Kartennummer + " Time: " + card.time);
-                        Thread localsync = new Thread(LocalDB.Synchronisation);
-                        localsync.Start();
+                        record.Kartennummer = correctUID(record.Kartennummer);
+                        LocalDB.Recordqueue.Enqueue(record);
+                        Console.WriteLine("Enqueued CardID: " + record.Kartennummer + " Arrival: " + record.Kommen);
                     }
                 }
                 

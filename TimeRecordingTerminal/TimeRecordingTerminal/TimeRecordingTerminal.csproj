@@ -78,7 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ConfigReader.cs" />
     <Compile Include="LocalDB.cs" />

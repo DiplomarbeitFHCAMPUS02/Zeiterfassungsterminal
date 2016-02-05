@@ -8,16 +8,28 @@ namespace TimeRecordingTerminal
 {
     class Record
     {
+        //Buchung Step1: Kartennummer, ReaderIDKommen, !erledigt, Kommen
+        //Buchung Step2: ReaderIDGehen, erledigt, Gehen
         public string Kartennummer;
         public int ReaderIDKommen, ReaderIDGehen;
         public bool erledigt;
-        public DateTime Kommen, Gehen;
-        public Record (string _Kartennummer, int _ReaderIDKommen, int _ReaderIDGehen)
+        public string Kommen, Gehen;
+        public Record (string _Kartennummer, int _ReaderIDKommen, string _Kommen)
         {
             erledigt = false;
             Kartennummer = _Kartennummer;
             ReaderIDKommen = _ReaderIDKommen;
-            ReaderIDGehen = _ReaderIDGehen;
+            Kommen = _Kommen;
+        }
+
+        public void completeRecord(int _ReaderIDGehen, string _Gehen)
+        {
+            this.ReaderIDGehen = _ReaderIDGehen;
+            this.Gehen = _Gehen;
+            if (Kartennummer != null && Kommen != null && Gehen != null)
+            {
+                erledigt = true;
+            }
         }
         
     }

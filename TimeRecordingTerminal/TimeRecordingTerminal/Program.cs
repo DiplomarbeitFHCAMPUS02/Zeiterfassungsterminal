@@ -30,6 +30,10 @@ namespace TimeRecordingTerminal
             if (cmd.Equals("RUN"))
             {
                 Config config = ConfigReader.getConfig();
+
+                Thread autotransmit = new Thread(() => LocalDB.Transmitter(LocalDB.ClientBuilder(config)));
+                autotransmit.Start();
+
                 if (config.usbreaderstatus == "true")
                 {
                     IReader MS_USB = new ConsoleReader();
@@ -51,11 +55,22 @@ namespace TimeRecordingTerminal
             #region TESTING
             if (cmd.Equals("TEST"))
             {
-                ServiceBrowser browser = new ServiceBrowser();
-
-                browser.Browse("_Workstation._tcp", "local");
+                MyCouchClient client = LocalDB.ClientBuilder(ConfigReader.getConfig());
+                MyCouch.Requests.QueryViewRequest query = new MyCouch.Requests.QueryViewRequest("_design/view/_view/erledigt");
+                query.Configure(cfg => cfg.Key("1A4E6B08"));
+                var response = LocalDB.ClientBuilder(ConfigReader.getConfig()).Views.QueryAsync<Record[]>(query);
+                Testfunction(response.Result.Rows[0].Id);
+                Console.ReadLine();
             }
             #endregion
+            Console.ReadLine();
+        }
+        public static async void Testfunction(string id)
+        {
+            MyCouchClient client = LocalDB.ClientBuilder(ConfigReader.getConfig());
+
+            MyCouch.Responses.EntityResponse<Record> record = await client.Entities.GetAsync<Record>(id);
+            Record record2 = record.Content;
             Console.ReadLine();
         }
 
