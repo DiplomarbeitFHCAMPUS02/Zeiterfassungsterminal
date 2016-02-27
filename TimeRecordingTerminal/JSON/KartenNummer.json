@@ -1,0 +1,1 @@
+﻿{  \"_id\": \"_design/view\",  \"language\": \"javascript\",  \"views\": { \"erledgt\": { \"map\": \"function(doc) {n if(doc.erledigt == '0')n{n  emit(doc.kartennummer);n}n}\" } }}

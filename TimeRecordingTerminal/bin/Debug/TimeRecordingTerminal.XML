@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TimeRecordingTerminal</name>
+    </assembly>
+    <members>
+        <member name="T:TimeRecordingTerminal.Config">
+            <summary>
+            Config structure includes data for configuration
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.dbip">
+            <summary>
+            Thats the IP from the Database(Just for Testing - will be Removed)
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.username">
+            <summary>
+            username to access CouchDB
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.password">
+            <summary>
+            password to access CouchDB
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.dbbuchungen">
+            <summary>
+            The name of the "Buchungen" table
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.dbkarten">
+            <summary>
+            The name of the "Karten" table
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.pn532status">
+            <summary>
+            true/false to activate/deactive pn532 reader
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.usbreaderstatus">
+            <summary>
+            true/false to activate/deactive USB reader
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.targetdbname">
+            <summary>
+            Ip and Name xxx.xxx.xxx/name for Replicationdatabase(Just for Testing)
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.hostname">
+            <summary>
+            Hostname to find other Terminals with Avahi/Zeroconfig(hostname has to be part of the others Hostname)
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.ConfigReader">
+            <summary>
+            Class ConfigReader is used to read the App.config
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.ConfigReader.getConfig">
+            <summary>
+            Function getConfig from <see cref="T:TimeRecordingTerminal.ConfigReader"/> which returns a <see cref="T:TimeRecordingTerminal.Config"/>. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TimeRecordingTerminal.Discoveryservice">
+            <summary>
+            A service to discover other Termials with <see cref="N:Mono.Zeroconf"/>.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Discoveryservice.ipaddresses">
+            <summary>
+            The List ipaddresses contains all IP Addresses from other Terminals
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.Discoveryservice.Discover">
+            <summary>
+            The function Discover from <see cref="T:TimeRecordingTerminal.Discoveryservice"/> searches all 500 Seconds for other Terminals
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.LocalDB">
+            <summary>
+            LocalDB class includes useful functions for working with CouchDB
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.LocalDB.Recordqueue">
+            <summary>
+            A Queue of Records. Reader passes Record in here.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.ClientBuilder(TimeRecordingTerminal.Config)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to create a <see cref="T:MyCouch.MyCouchClient"/> with standard table
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.ClientBuilder(TimeRecordingTerminal.Config,System.Boolean)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to create a <see cref="T:MyCouch.MyCouchClient"/> with "Karten" table
+            </summary>
+            <param name="config"></param>
+            <param name="dbkarten"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.ServerClientBuilder(TimeRecordingTerminal.Config)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to create a <see cref="T:MyCouch.MyCouchServerClient"/>.
+            </summary>
+            <param name="config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.replicate(MyCouch.MyCouchServerClient,System.String,System.String)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to replicate the local DB to all other DBs in LAN. Sends a HTTP request. Database will handle replication afterwards./>.
+            </summary>
+            <param name="client"></param>
+            <param name="DBName"></param>
+            <param name="targetDBName"></param>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.Transmitter(MyCouch.MyCouchClient)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to Transmit all <see cref="T:TimeRecordingTerminal.Record"/> in <see cref="F:TimeRecordingTerminal.LocalDB.Recordqueue"/> to the <see cref="T:MyCouch.MyCouchClient"/> every 10 seconds.
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.checkRecords(System.String,TimeRecordingTerminal.Record@)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to check a <see cref="T:TimeRecordingTerminal.Record"/> in the LocalDB. Adds the StudentID to the Record
+            </summary>
+            <param name="KartenNummer"></param>
+            <param name="record"></param>
+            <returns>true when there is exact one unfinished Record. False when there are more then one or no unfinished Records.</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.deleteRecord(System.String,System.String)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to delete a <see cref="T:TimeRecordingTerminal.Record"/> in the <see cref="T:MyCouch.MyCouchClient"/> Database.
+            </summary>
+            <param name="id"></param>
+            <param name="rev"></param>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.checkCardnumber(TimeRecordingTerminal.Record,System.Boolean@)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to check a <see cref="T:TimeRecordingTerminal.Record"/> "KartenNummer" in the <see cref="T:MyCouch.MyCouchClient"/> Database. Valid will be true when the KartenNummer is valid.
+            </summary>
+            <param name="record"></param>
+            <param name="valid"></param>
+            <returns>returns the modified Record. When Card is OK it will add the StudentID</returns>
+        </member>
+        <member name="T:TimeRecordingTerminal.Record">
+            <summary>
+            Record is a Class which stores the information for one Record.
+            A Record runs threw two steps:
+                Step1: When a new KartenNummer arrives it will create a new Record with KartenNummer
+                       ReaderIDKommen(ID of Terminal where action happened), Kommen(Time of arrival)
+                       and erledigt will be false -> The Record is not finished now!
+                Step2: Record finishes when KartenNummer arrives second time.
+                       ReaderIDGehen will be saved and the time Gehen(departure) and erledigt will be true. Record is completed!
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.KartenNummer">
+            <summary>
+            KartenNummer is the Tag from the Card. StudentID is the ID from the Student.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.StudentID">
+            <summary>
+            KartenNummer is the Tag from the Card. StudentID is the ID from the Student.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.ReaderIDKommen">
+            <summary>
+            The ID from the Terminal where the User Arrived/Left
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.ReaderIDGehen">
+            <summary>
+            The ID from the Terminal where the User Arrived/Left
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.erledigt">
+            <summary>
+            Is the Record completed?
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.gueltig">
+            <summary>
+            Is the Record completed?
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.Kommen">
+            <summary>
+            Arriving/Leavingtime
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.Gehen">
+            <summary>
+            Arriving/Leavingtime
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.Record.#ctor(System.String,System.Int32,System.String)">
+            <summary>
+            This is the constructor of Record and it will create the first Record(<see cref="T:TimeRecordingTerminal.Record"/>).
+            </summary>
+            <param name="_KartenNummer"></param>
+            <param name="_ReaderIDKommen"></param>
+            <param name="_Kommen"></param>
+        </member>
+        <member name="M:TimeRecordingTerminal.Record.completeRecord(System.Int32,System.String)">
+            <summary>
+            This is the function completeRecord from Record class and it will complete the Record(Step2 <see cref="T:TimeRecordingTerminal.Record"/>)
+            </summary>
+            <param name="_ReaderIDGehen"></param>
+            <param name="_Gehen"></param>
+        </member>
+        <member name="T:TimeRecordingTerminal.IReader">
+            <summary>
+            interface to make sure that every Reader uses the <see cref="M:TimeRecordingTerminal.IReader.Reading"/> function
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.IReader.Reading">
+            <summary>
+            Reading function in <see cref="T:TimeRecordingTerminal.IReader"/>. <seealso cref="M:TimeRecordingTerminal.ConsoleReader.Reading"/> and <seealso cref="M:TimeRecordingTerminal.PN532Reader.Reading"/>
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.Reader">
+            <summary>
+            Parent class to all Readers
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.Reader.createRecord(System.String)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.Reader"/> which will create a new Record with the <seealso cref="P:System.DateTime.Now"/>, the passed KartenNummer and the ID from the Terminal.
+            </summary>
+            <param name="KartenNummer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TimeRecordingTerminal.PN532Reader">
+            <summary>
+            Pn532 Reader is a NFCCardReader. Inherits from <see cref="T:TimeRecordingTerminal.Reader"/> and the Interface <see cref="T:TimeRecordingTerminal.IReader"></see>
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.PN532Reader.#ctor(System.String,SharpNFC.PInvoke.nfc_baud_rate,SharpNFC.PInvoke.nfc_modulation_type,System.Byte,System.Byte)">
+            <summary>
+            Creates a new PN532Reader
+            </summary>
+            <param name="_connstring"></param>
+            <param name="_baudrate"></param>
+            <param name="modtype"></param>
+            <param name="_poolcount"></param>
+            <param name="_poolinginterval"></param>
+        </member>
+        <member name="M:TimeRecordingTerminal.PN532Reader.Reading">
+            <summary>
+            Wait for input and create/edit a Record out of the Input
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.ConsoleReader">
+            <summary>
+            A ConsoleReader. Microsoft USB Reader for example.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.ConsoleReader.Reading">
+            <summary>
+            Wait for input and create/edit a Record out of the Input
+            </summary>
+        </member>
+    </members>
+</doc>
