@@ -1,0 +1,521 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TimeRecordingTerminal</name>
+    </assembly>
+    <members>
+        <member name="T:TimeRecordingTerminal.Card">
+            <summary>
+            Card is a Class which stores information for a valid Card.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Card.id">
+            <summary>
+            The unique ID for the <see cref="T:TimeRecordingTerminal.Card"/> entry in the Database.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Card.kartenNummer">
+            <summary>
+            The "Kartennummer" of the <see cref="T:TimeRecordingTerminal.Card"/>.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Card.studentID">
+            <summary>
+            The StudentID which the <see cref="T:TimeRecordingTerminal.Card"/> refers to.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Card.ausgestelltAm">
+            <summary>
+            The datetime where the <see cref="T:TimeRecordingTerminal.Card"/> has been activated.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.Card.#ctor(System.String,System.String,System.String)">
+            <summary>
+            The constructor of <see cref="T:TimeRecordingTerminal.Card"/> will create a new <see cref="T:TimeRecordingTerminal.Card"/>.
+            </summary>
+            <param name="_KartenNummer"><see cref="F:TimeRecordingTerminal.Card.kartenNummer"/></param>
+            <param name="_StudentID"><see cref="F:TimeRecordingTerminal.Card.studentID"/></param>
+            <param name="_ID"><see cref="F:TimeRecordingTerminal.Card.id"/></param>
+        </member>
+        <member name="T:TimeRecordingTerminal.Config">
+            <summary>
+            Config structure includes data for configuration
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.dbip">
+            <summary>
+            That's the local IP from the Database(IP:Port, e.g.: 127.0.0.1:5984)
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.username">
+            <summary>
+            Username to access CouchDB
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.password">
+            <summary>
+            Password to access CouchDB
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.dbbuchungen">
+            <summary>
+            The name of the "Buchungen" table
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.dbkarten">
+            <summary>
+            The name of the "Karten" table
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.pn532status">
+            <summary>
+            True/false to activate/deactive PN532 reader
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.usbreaderstatus">
+            <summary>
+            True/false to activate/deactive USB reader
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.hostname">
+            <summary>
+            Hostname to find other Terminals with Avahi/Zeroconfig(hostname has to be part of the other Terminals Hostname)
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.ext_server">
+            <summary>
+            IP from the external database
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.ext_db">
+            <summary>
+            Name from external Database
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.ext_userid">
+            <summary>
+            Username to access the external database
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.ext_pw">
+            <summary>
+            Password to access the external database
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.ext_zeitbuchungen">
+            <summary>
+            The name of the external "zeit.buchungen" table
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.ext_zeitkarten">
+            <summary>
+            The name of the external "zeit.karten" table
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Config.pwm_frequency">
+            <summary>
+            The Frequency for the PWM Signal for the Beeper(max 5000)
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.ConfigReader">
+            <summary>
+            Class ConfigReader is used to read the App.config
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.ConfigReader.getConfig">
+            <summary>
+            Function getConfig from <see cref="T:TimeRecordingTerminal.ConfigReader"/> which returns a <see cref="T:TimeRecordingTerminal.Config"/>. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TimeRecordingTerminal.CouchViews">
+            <summary>
+            This class contains the JSON Views for CouchDB
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.CouchViews.createKartenNummerview">
+            <summary>
+            Funktion in <see cref="T:TimeRecordingTerminal.CouchViews"/> which creates a View which will show the <see cref="F:TimeRecordingTerminal.Record.kartenNummer"/> and the relating <see cref="T:TimeRecordingTerminal.Record"/>.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.CouchViews.createerledigtview">
+            <summary>
+            Funktion in <see cref="T:TimeRecordingTerminal.CouchViews"/> which creates a View which will show all not finished <see cref="T:TimeRecordingTerminal.Record"/>s. <seealso cref="F:TimeRecordingTerminal.Record.erledigt"/>
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.Discoveryservice">
+            <summary>
+            A service to discover other Termials with <see cref="N:Mono.Zeroconf"/>.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.Discoveryservice.Discover">
+            <summary>
+            Funktion in <see cref="T:TimeRecordingTerminal.Discoveryservice"/> to Browse for other "TimeRecordingTerminals" in the domain: local
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.ExternalDB">
+            <summary>
+            External DB includes useful functions for working with an external MySQL Database
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.CreateConnString">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to create a connection to <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/>.
+            </summary>
+            <returns>Returns a <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.OpenConnection(MySql.Data.MySqlClient.MySqlConnection)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.ExternalDB"/>to try opening a connection to <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/>.
+            </summary>
+            <param name="connection">Connection string for <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
+            <returns>Returns true if opening a <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/> succeeds, otherwise returns false and throws an error in the console.</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.CloseConnection(MySql.Data.MySqlClient.MySqlConnection)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> for closing the <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/>.
+            </summary>
+            <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
+            <returns>Returns true if closing connection succeeds, otherwise returns false and an error in the console.</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.Insert(MySql.Data.MySqlClient.MySqlConnection,TimeRecordingTerminal.Record)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to add a <see cref="T:TimeRecordingTerminal.Record"/> to <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/>.
+            </summary>
+            <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
+            <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.SyncBuchungen">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/>to synchronise every 10 minutes from the local to the external database.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.CheckEntry(MySql.Data.MySqlClient.MySqlConnection,TimeRecordingTerminal.Record)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/>to check if the <see cref="T:TimeRecordingTerminal.Record"/> is already in the database.
+            </summary>
+            <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
+            <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
+            <returns></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.CopyCards(MySql.Data.MySqlClient.MySqlConnection)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/>that returns the content from the table "zeitkarten".
+            </summary>
+            <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
+            <returns></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.SyncCards">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to receive a list of <see cref="T:TimeRecordingTerminal.Record"/>  from the local database and sends it to the external database.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.ExternalDB.Transmit(MySql.Data.MySqlClient.MySqlConnection,TimeRecordingTerminal.Record)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to check if the <see cref="T:TimeRecordingTerminal.Record"/> is already in the table, and if not it will be added to the table.
+            </summary>
+            <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
+            <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
+        </member>
+        <member name="T:TimeRecordingTerminal.LocalDB">
+            <summary>
+            LocalDB class includes useful functions for working with CouchDB
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.LocalDB.Recordqueue">
+            <summary>
+            A Queue of Records. Reader passes Record in here.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.ClientBuilder(TimeRecordingTerminal.Config)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to create a <see cref="T:MyCouch.MyCouchClient"/> with "Buchungen" table.
+            </summary>
+            <param name="config"><see cref="T:TimeRecordingTerminal.Config"/></param>
+            <returns><see cref="T:MyCouch.MyCouchClient"/></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.ClientBuilder(TimeRecordingTerminal.Config,System.Boolean)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to create a <see cref="T:MyCouch.MyCouchClient"/> with "Karten" table.
+            </summary>
+            <param name="config"><see cref="T:TimeRecordingTerminal.Config"/></param>
+            <param name="dbkarten">True if it should create <see cref="T:MyCouch.MyCouchClient"/> with "Karten" table.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.ServerClientBuilder(TimeRecordingTerminal.Config)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to create a <see cref="T:MyCouch.MyCouchServerClient"/>.
+            </summary>
+            <param name="config"><see cref="T:TimeRecordingTerminal.Config"/></param>
+            <returns>returns a <see cref="T:MyCouch.MyCouchServerClient"/></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.Transmit(MyCouch.MyCouchClient,TimeRecordingTerminal.Record)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to Transmit a single <see cref="T:TimeRecordingTerminal.Record"/>.
+            </summary>
+            <param name="client">Target <see cref="T:MyCouch.MyCouchClient"/></param>
+            <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.Transmit(MyCouch.MyCouchClient,TimeRecordingTerminal.Card)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to Transmit a single <see cref="T:TimeRecordingTerminal.Record"/>.
+            </summary>
+            <param name="client">Target <see cref="T:MyCouch.MyCouchClient"/></param>
+            <param name="card"><see cref="T:TimeRecordingTerminal.Card"/> to transmit</param>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.replicate(MyCouch.MyCouchServerClient,System.String,System.String)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to replicate the local DB to all other DBs in LAN. Sends a HTTP request. Database will handle replication afterwards./>.
+            </summary>
+            <param name="client">Target <see cref="T:MyCouch.MyCouchClient"/></param>
+            <param name="DBName">Name of the database.</param>
+            <param name="targetDBIP">The IP from the other Database</param>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.Transmitter(MyCouch.MyCouchClient)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to Transmit all <see cref="T:TimeRecordingTerminal.Record"/> in <see cref="F:TimeRecordingTerminal.LocalDB.Recordqueue"/> to the <see cref="T:MyCouch.MyCouchClient"/> every 10 seconds.
+            </summary>
+            <param name="client"><see cref="T:MyCouch.MyCouchClient"/></param>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.checkRecords(System.String,TimeRecordingTerminal.Record@)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to check a <see cref="T:TimeRecordingTerminal.Record"/> in the LocalDB. Adds the StudentID to the Record.
+            </summary>
+            <param name="KartenNummer"><see cref="F:TimeRecordingTerminal.Record.kartenNummer"/> to check.</param>
+            <param name="record">Returns the edited <see cref="T:TimeRecordingTerminal.Record"/></param>
+            <returns>true when there is exact one unfinished Record. False when there are more then one or no unfinished Records.</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.deleteRecord(System.String,System.String)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to delete a <see cref="T:TimeRecordingTerminal.Record"/> in the <see cref="T:MyCouch.MyCouchClient"/> Database.
+            </summary>
+            <param name="id">ID of the Entry.</param>
+            <param name="rev">Revisionnumber of the Entry</param>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.copyEntry(System.String)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to copy a single <see cref="T:TimeRecordingTerminal.Record"/> from the <see cref="T:MyCouch.MyCouchClient"/>.
+            </summary>
+            <param name="id">ID of the Entry</param>
+            <returns></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.checkCardnumber(TimeRecordingTerminal.Record,System.Boolean@)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to check a <see cref="T:TimeRecordingTerminal.Record"/> "KartenNummer" in the <see cref="T:MyCouch.MyCouchClient"/> Database. Valid will be true when the KartenNummer is valid.
+            </summary>
+            <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to check.</param>
+            <param name="valid">True if <see cref="T:TimeRecordingTerminal.Record"/> is valid</param>
+            <returns>returns the modified <see cref="T:TimeRecordingTerminal.Record"/>. When Card is OK it will add the <see cref="F:TimeRecordingTerminal.Record.studentID"/> and <see cref="T:TimeRecordingTerminal.Record"/></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.GetRecords(MyCouch.MyCouchClient)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to get all <see cref="T:TimeRecordingTerminal.Record"/>s from the <see cref="T:MyCouch.MyCouchClient"/> Database.
+            </summary>
+            <param name="client">The <see cref="T:MyCouch.MyCouchClient"/> where the Database is running on.</param>
+            <returns>Returns a list of all <see cref="T:TimeRecordingTerminal.Record"/> in the <see cref="T:MyCouch.MyCouchClient"/> Database</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.LocalDB.midnightsync">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to get transmit all <see cref="T:TimeRecordingTerminal.Record"/>s in the <see cref="T:MyCouch.MyCouchClient"/> Database to the <see cref="T:TimeRecordingTerminal.ExternalDB"/>.
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.Record">
+            <summary>
+            Record is a Class which stores the information for one Record.
+            A Record runs threw two steps:
+                Step1: When a new KartenNummer arrives it will create a new Record with KartenNummer
+                       ReaderIDKommen(ID of Terminal where action happened), Kommen(Time of arrival)
+                       and erledigt will be false -> The Record is not finished now!
+                Step2: Record finishes when KartenNummer arrives second time.
+                       ReaderIDGehen will be saved and the time Gehen(departure) and erledigt will be true. Record is completed!
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.kartenID">
+            <summary>
+            KartenID is the unique ID of a card.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.kartenNummer">
+            <summary>
+            KartenNummer is the Tag from the Card.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.studentID">
+            <summary>
+            studentID is the ID from the Student who owns the Card.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.readerIDKommen">
+            <summary>
+            The ID from the Terminal where the user arrived.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.readerIDGehen">
+            <summary>
+            The ID from the Terminal where the user left.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.erledigt">
+            <summary>
+            Is the Record completed?
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.gueltig">
+            <summary>
+            Is the Record valid?
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.kommen">
+            <summary>
+            Time of arrival.
+            </summary>
+        </member>
+        <member name="F:TimeRecordingTerminal.Record.gehen">
+            <summary>
+            Time of leaving.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.Record.#ctor(System.String,System.Int32,System.String)">
+            <summary>
+            This is the constructor of Record and it will create the first Record(<see cref="T:TimeRecordingTerminal.Record"/>).
+            </summary>
+            <param name="_kartenID"><see cref="F:TimeRecordingTerminal.Record.kartenID"/></param>
+            <param name="_KartenNummer"><see cref="F:TimeRecordingTerminal.Record.kartenNummer"/></param>
+            <param name="_ReaderIDKommen"><see cref="F:TimeRecordingTerminal.Record.readerIDGehen"/></param>
+            <param name="_Kommen"><see cref="F:TimeRecordingTerminal.Record.kommen"/></param>
+        </member>
+        <member name="M:TimeRecordingTerminal.Record.completeRecord(System.Int32,System.String)">
+            <summary>
+            This is the function completeRecord from <see cref="T:TimeRecordingTerminal.Record"/> class and it will complete the <see cref="T:TimeRecordingTerminal.Record"/>(Step2 <see cref="T:TimeRecordingTerminal.Record"/>)
+            </summary>
+            <param name="_ReaderIDGehen"><see cref="F:TimeRecordingTerminal.Record.readerIDGehen"/></param>
+            <param name="_Gehen"><see cref="F:TimeRecordingTerminal.Record.gehen"/></param>
+        </member>
+        <member name="T:TimeRecordingTerminal.IReader">
+            <summary>
+            interface to make sure that every <see cref="T:TimeRecordingTerminal.Reader"/> uses the <see cref="M:TimeRecordingTerminal.IReader.Reading"/> function
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.IReader.Reading">
+            <summary>
+            Reading function in <see cref="T:TimeRecordingTerminal.IReader"/>. <seealso cref="M:TimeRecordingTerminal.ConsoleReader.Reading"/> and <seealso cref="M:TimeRecordingTerminal.PN532Reader.Reading"/>
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.Reader">
+            <summary>
+            Parent class to all Readers
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.Reader.createRecord(System.String)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.Reader"/> which will create a new <see cref="T:TimeRecordingTerminal.Record"/> with the <seealso cref="P:System.DateTime.Now"/>, the passed <see cref="F:TimeRecordingTerminal.Record.kartenNummer"/> and the ID from the Terminal.
+            </summary>
+            <param name="KartenNummer"></param>
+            <returns>Returns a <see cref="T:TimeRecordingTerminal.Record"/></returns>
+        </member>
+        <member name="T:TimeRecordingTerminal.PN532Reader">
+            <summary>
+            Pn532 Reader is a NFCCardReader. Inherits from <see cref="T:TimeRecordingTerminal.Reader"/> and the Interface <see cref="T:TimeRecordingTerminal.IReader"></see>
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.PN532Reader.#ctor(System.String,SharpNFC.PInvoke.nfc_baud_rate,SharpNFC.PInvoke.nfc_modulation_type,System.Byte,System.Byte)">
+            <summary>
+            Creates a new PN532Reader
+            </summary>
+            <param name="_connstring"></param>
+            <param name="_baudrate"></param>
+            <param name="modtype"></param>
+            <param name="_poolcount"></param>
+            <param name="_poolinginterval"></param>
+        </member>
+        <member name="M:TimeRecordingTerminal.PN532Reader.Reading">
+            <summary>
+            Wait for input and create/edit a Record out of the Input
+            </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.ConsoleReader">
+            <summary>
+            A ConsoleReader. Microsoft USB Reader for example.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.ConsoleReader.Reading">
+            <summary>
+            Wait for input and create/edit a <see cref="T:TimeRecordingTerminal.Record"/> out of the Input
+            </summary>
+        </member>
+        <member name="T:RaspberryGPIOManager.GPIOPinDriver">
+            <summary>
+            A class to control the GPIO Pins on a Raspberry PI
+            </summary>
+        </member>
+        <member name="T:RaspberryGPIOManager.GPIOPinDriver.Pin">
+            <summary>
+            P1 GPIO pins
+            </summary>
+        </member>
+        <member name="T:RaspberryGPIOManager.GPIOPinDriver.GPIODirection">
+            <summary>
+            Direction of the GPIO Pin
+            </summary>
+        </member>
+        <member name="T:RaspberryGPIOManager.GPIOPinDriver.GPIOState">
+            <summary>
+            The value (High or Low) of a GPIO pin.
+            </summary>
+        </member>
+        <member name="P:RaspberryGPIOManager.GPIOPinDriver.GPIOPin">
+            <summary>
+            Gets the GPIO pin number.
+            </summary>
+        </member>
+        <member name="P:RaspberryGPIOManager.GPIOPinDriver.Direction">
+            <summary>
+            Gets or sets the direction of of an output GPIO pin.
+            </summary>
+        </member>
+        <member name="P:RaspberryGPIOManager.GPIOPinDriver.State">
+            <summary>
+            The current value of a GPIO pin.
+            </summary>
+        </member>
+        <member name="M:RaspberryGPIOManager.GPIOPinDriver.#ctor(RaspberryGPIOManager.GPIOPinDriver.Pin)">
+            <summary>
+            Sets up an interface for accessing the specified GPIO pin with direction set to OUT and initial value to LOW.
+            </summary>
+            <param name="gpioPin">The GPIO pin to be accessed</param>
+        </member>
+        <member name="M:RaspberryGPIOManager.GPIOPinDriver.#ctor(RaspberryGPIOManager.GPIOPinDriver.Pin,RaspberryGPIOManager.GPIOPinDriver.GPIODirection)">
+            <summary>
+            Sets up an interface for accessing the specified GPIO pin with the given direction and initial value set to LOW.
+            </summary>
+            <param name="gpioPin">The GPIO pin to be accessed.</param>
+            <param name="direction">The direction the GPIO pin should have.</param>
+        </member>
+        <member name="M:RaspberryGPIOManager.GPIOPinDriver.#ctor(RaspberryGPIOManager.GPIOPinDriver.Pin,RaspberryGPIOManager.GPIOPinDriver.GPIODirection,RaspberryGPIOManager.GPIOPinDriver.GPIOState)">
+            <summary>
+            Sets up an interface for accessing the specified GPIO pin with the given direction and given initial value.
+            </summary>
+            <param name="gpioPin">The GPIO pin to be accessed.</param>
+            <param name="direction">The direction the GPIO pin should have.</param>
+            <param name="initialValue">The initial value the GPIO pin should have.</param>
+        </member>
+        <member name="M:RaspberryGPIOManager.GPIOPinDriver.Unexport">
+            <summary>
+            Unexports the GPIO interface.
+            </summary>
+        </member>
+        <member name="M:RaspberryGPIOManager.GPIOPinDriver.Dispose">
+            <summary>
+            Function in <see cref="P:RaspberryGPIOManager.GPIOPinDriver.GPIOPin"/> to Dispose the <see cref="T:RaspberryGPIOManager.GPIOPinDriver"/>.
+            </summary>
+        </member>
+        <member name="M:RaspberryGPIOManager.GPIOPinDriver.playsound(RaspberryGPIOManager.GPIOPinDriver.Pin,System.Single,System.Int32)">
+            <summary>
+            Function in <see cref="P:RaspberryGPIOManager.GPIOPinDriver.GPIOPin"/> to play a sound.
+            </summary>
+            <param name="pin">The Pin of the Buzzer(GPIO PIN!)</param>
+            <param name="duration">The time how long a single tone should last for.</param>
+            <param name="repeats">The amount of repeats</param>
+        </member>
+    </members>
+</doc>
