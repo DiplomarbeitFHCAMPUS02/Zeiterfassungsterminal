@@ -4,10 +4,10 @@
     /// Record is a Class which stores the information for one Record.
     /// A Record runs threw two steps:
     ///     Step1: When a new KartenNummer arrives it will create a new Record with KartenNummer
-    ///            ReaderIDKommen(ID of Terminal where action happened), Kommen(Time of arrival)
+    ///            ReaderIDKommen (ID of Terminal where action happened), Kommen (Time of arrival)
     ///            and erledigt will be false -> The Record is not finished now!
     ///     Step2: Record finishes when KartenNummer arrives second time.
-    ///            ReaderIDGehen will be saved and the time Gehen(departure) and erledigt will be true. Record is completed!
+    ///            ReaderIDGehen will be saved and the time Gehen (departure) and erledigt will be true. Record is completed!
     /// </summary>
     public class Record
     {
@@ -53,9 +53,8 @@
         public string gehen;
 
         /// <summary>
-        /// This is the constructor of Record and it will create the first Record(<see cref="Record"/>).
+        /// This is the constructor of Record and it will create the first Record (<see cref="Record"/>).
         /// </summary>
-        /// <param name="_kartenID"><see cref="Record.kartenID"/></param>
         /// <param name="_KartenNummer"><see cref="Record.kartenNummer"/></param>
         /// <param name="_ReaderIDKommen"><see cref="Record.readerIDGehen"/></param>
         /// <param name="_Kommen"><see cref="Record.kommen"/></param>
@@ -68,7 +67,7 @@
             gueltig = false;
         }
         /// <summary>
-        /// This is the function completeRecord from <see cref="Record"/> class and it will complete the <see cref="Record"/>(Step2 <see cref="Record"/>)
+        /// This is the function completeRecord from <see cref="Record"/> class and it will complete the <see cref="Record"/> (Step2 <see cref="Record"/>)
         /// </summary>
         /// <param name="_ReaderIDGehen"><see cref="Record.readerIDGehen"/></param>
         /// <param name="_Gehen"><see cref="Record.gehen"/></param>

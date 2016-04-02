@@ -6,7 +6,7 @@
     public struct Config
     {
         /// <summary>
-        /// That's the local IP from the Database(IP:Port, e.g.: 127.0.0.1:5984)
+        /// That's the local IP from the Database (IP:Port, e.g.: 127.0.0.1:5984)
         /// </summary>
         public string dbip; //IP of Local database
         /// <summary>
@@ -34,7 +34,7 @@
         /// </summary>
         public string usbreaderstatus;
          /// <summary>
-        /// Hostname to find other Terminals with Avahi/Zeroconfig(hostname has to be part of the other Terminals Hostname)
+        /// Hostname to find other Terminals with Avahi/Zeroconfig (hostname has to be part of the other Terminals Hostname)
         /// </summary>
         public string hostname;
         /// <summary>
@@ -62,8 +62,12 @@
         /// </summary>
         public string ext_zeitkarten;
         /// <summary>
-        /// The Frequency for the PWM Signal for the Beeper(max 5000)
+        /// The Frequency for the PWM Signal for the Beeper (max 5000)
         /// </summary>
         public int pwm_frequency;
+        /// <summary>
+        /// The time each Card gets locked for after using a Terminal (In Seconds).
+        /// </summary>
+        public int cardlocktime;
     }
 }

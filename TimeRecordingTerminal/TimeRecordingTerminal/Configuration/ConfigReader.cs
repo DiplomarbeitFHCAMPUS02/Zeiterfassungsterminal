@@ -30,6 +30,7 @@ namespace TimeRecordingTerminal
             temp_config.ext_zeitbuchungen = ConfigurationManager.AppSettings["ext_zeitbuchungen"].ToString();
             temp_config.ext_zeitkarten = ConfigurationManager.AppSettings["ext_zeitkarten"].ToString();
             temp_config.pwm_frequency = int.Parse(ConfigurationManager.AppSettings["pwm_frequency"]);
+            temp_config.cardlocktime = int.Parse(ConfigurationManager.AppSettings["cardlocktime"]);
             return temp_config;
         }
     }

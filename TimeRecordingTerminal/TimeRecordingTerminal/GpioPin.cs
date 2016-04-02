@@ -190,7 +190,7 @@ namespace RaspberryGPIOManager
         /// <summary>
         /// Function in <see cref="GPIOPin"/> to play a sound.
         /// </summary>
-        /// <param name="pin">The Pin of the Buzzer(GPIO PIN!)</param>
+        /// <param name="pin">The Pin of the Buzzer (GPIO PIN!)</param>
         /// <param name="duration">The time how long a single tone should last for.</param>
         /// <param name="repeats">The amount of repeats</param>
         public static void playsound(GPIOPinDriver.Pin pin,float duration, int repeats)

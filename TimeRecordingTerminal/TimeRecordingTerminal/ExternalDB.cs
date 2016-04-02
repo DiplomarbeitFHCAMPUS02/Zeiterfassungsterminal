@@ -105,21 +105,28 @@ namespace TimeRecordingTerminal
         {
             while (true)
             {
-                List<Record> list = LocalDB.GetRecords(LocalDB.ClientBuilder(ConfigReader.getConfig()));
-
-                foreach (Record r in list)
+                try
                 {
-                    try
-                    {
-                        Insert(CreateConnString(), r);
-                    }
-                    catch (MySqlException ex)
-                    {
-                      Console.WriteLine(ex.Message);
-                    }
-                }
+                    List<Record> list = LocalDB.GetRecords(LocalDB.ClientBuilder(ConfigReader.getConfig()));
 
-                Thread.Sleep(10 * 60 * 1000);
+                    foreach (Record r in list)
+                    {
+                        try
+                        {
+                            Insert(CreateConnString(), r);
+                        }
+                        catch (MySqlException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+
+                    Thread.Sleep(10 * 60 * 1000);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
         /// <summary>
@@ -218,7 +225,6 @@ namespace TimeRecordingTerminal
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    throw;
                 }
             }
 

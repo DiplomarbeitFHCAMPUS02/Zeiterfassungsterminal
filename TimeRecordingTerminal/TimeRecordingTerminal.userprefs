@@ -1,0 +1,21 @@
+﻿<Properties StartupItem="TimeRecordingTerminal\TimeRecordingTerminal.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TimeRecordingTerminal\TagReader.cs">
+    <Files>
+      <File FileName="TimeRecordingTerminal\Card.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\CardLock.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\CouchViews.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\Discoveryservice.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\ExternalDB.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\GpioPin.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\LocalDB.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\Program.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\Record.cs" Line="1" Column="1" />
+      <File FileName="TimeRecordingTerminal\TagReader.cs" Line="151" Column="59" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

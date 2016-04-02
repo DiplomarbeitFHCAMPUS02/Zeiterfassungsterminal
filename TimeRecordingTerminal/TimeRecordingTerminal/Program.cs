@@ -33,7 +33,7 @@ namespace TimeRecordingTerminal
                 NetworkWatcher.Start();
                 Console.WriteLine("Starting SyncBuchungen...");
                 Thread SyncBuchungen = new Thread(() => ExternalDB.SyncBuchungen());
-                SyncBuchungen.Start();
+                //SyncBuchungen.Start();
                 Console.WriteLine("Starting Transmitter...");
                 Thread autotransmit = new Thread(() => LocalDB.Transmitter(LocalDB.ClientBuilder(config)));
                 autotransmit.Start();
@@ -42,7 +42,10 @@ namespace TimeRecordingTerminal
                 Midnightsync.Start();
                 Console.WriteLine("Starting Cardsync...");
                 Thread Cardsync = new Thread(() => ExternalDB.SyncCards());
-                Cardsync.Start();
+                //Cardsync.Start();
+                Console.WriteLine("Starting Cardlockchecker...");
+                Thread cardlockchecker = new Thread(() => CardLock.cardlockchecker());
+                cardlockchecker.Start();
 
 
                 if (config.usbreaderstatus == "1")

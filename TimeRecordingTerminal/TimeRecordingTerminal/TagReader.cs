@@ -120,7 +120,7 @@ namespace TimeRecordingTerminal
                         //record.KartenNummer = correctUID(record.KartenNummer); //only to change sequence
                         Console.WriteLine("Checking Cardnumber: " + record.kartenNummer);
                         record = LocalDB.checkCardnumber(record, out valid);
-                        if (valid)
+                        if (valid && !CardLock.iscardlocked(record))
                         {
                             LocalDB.Recordqueue.Enqueue(record);
                             Console.WriteLine("Enqueued CardID: " + record.kartenNummer + " Arrival: " + record.kommen);
@@ -176,7 +176,7 @@ namespace TimeRecordingTerminal
                     {
                         record.kartenNummer = correctUID(record.kartenNummer);
                         record = LocalDB.checkCardnumber(record, out valid);
-                        if (valid)
+                        if (valid && !CardLock.iscardlocked(record))
                         {
                             LocalDB.Recordqueue.Enqueue(record);
                             Console.WriteLine("Enqueued CardID: " + record.kartenNummer + " Arrival: " + record.kommen);

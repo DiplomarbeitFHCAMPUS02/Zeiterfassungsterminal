@@ -121,7 +121,7 @@ namespace TimeRecordingTerminal
             }
         }
         /// <summary>
-        /// Function in <see cref="LocalDB"/> to check a <see cref="Record"/> in the LocalDB. Adds the StudentID to the Record.
+        /// Function in <see cref="LocalDB"/> to check a <see cref="Record"/> in the LocalDB.
         /// </summary>
         /// <param name="KartenNummer"><see cref="Record.kartenNummer"/> to check.</param>
         /// <param name="record">Returns the edited <see cref="Record"/></param>
@@ -185,7 +185,7 @@ namespace TimeRecordingTerminal
         /// </summary>
         /// <param name="record"><see cref="Record"/> to check.</param>
         /// <param name="valid">True if <see cref="Record"/> is valid</param>
-        /// <returns>returns the modified <see cref="Record"/>. When Card is OK it will add the <see cref="Record.studentID"/> and <see cref="Record"/></returns>
+        /// <returns>returns the modified <see cref="Record"/>. When Card is OK it will add the <see cref="Record.studentID"/>, <see cref="Record.kartenID"/> and <see cref="Record"/></returns>
         public static Record checkCardnumber(Record record, out bool valid)
         {
             MyCouchClient client = LocalDB.ClientBuilder(ConfigReader.getConfig(), true);
@@ -204,7 +204,7 @@ namespace TimeRecordingTerminal
                     record.studentID = response.Result.Rows[0].Value.studentID;
                     record.kartenID = response.Result.Rows[0].Value.id;
                     valid = true;
-                    RaspberryGPIOManager.GPIOPinDriver.playsound(RaspberryGPIOManager.GPIOPinDriver.Pin.GPIO22, 1, 1);
+                    //RaspberryGPIOManager.GPIOPinDriver.playsound(RaspberryGPIOManager.GPIOPinDriver.Pin.GPIO22, 1, 1);
                     return record;
                 }
             }
@@ -212,7 +212,7 @@ namespace TimeRecordingTerminal
             {
                 Console.WriteLine("Invalid Cardnumber!");
                 Console.WriteLine(record.kartenNummer);
-                RaspberryGPIOManager.GPIOPinDriver.playsound(RaspberryGPIOManager.GPIOPinDriver.Pin.GPIO22, 1, 4);
+                //RaspberryGPIOManager.GPIOPinDriver.playsound(RaspberryGPIOManager.GPIOPinDriver.Pin.GPIO22, 1, 4);
             }
             valid = false;
             return record;
