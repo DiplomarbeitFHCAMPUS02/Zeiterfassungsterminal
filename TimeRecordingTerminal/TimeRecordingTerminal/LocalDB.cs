@@ -28,7 +28,7 @@ namespace TimeRecordingTerminal
         /// </summary>
         /// <param name="config"><see cref="Config"/></param>
         /// <param name="dbkarten">True if it should create <see cref="MyCouchClient"/> with "Karten" table.</param>
-        /// <returns></returns>
+        /// <returns>returns a <see cref="MyCouchClient"/></returns>
         public static MyCouchClient ClientBuilder(Config config, bool dbkarten)
         {
             if (dbkarten)
@@ -55,7 +55,7 @@ namespace TimeRecordingTerminal
             return uriBuilder.Uri;
         }
         /// <summary>
-        /// Function in <see cref="LocalDB"/> to Transmit a single <see cref="Record"/>.
+        /// Function in <see cref="LocalDB"/> to transmit a single <see cref="Record"/>.
         /// </summary>
         /// <param name="client">Target <see cref="MyCouchClient"/></param>
         /// <param name="record"><see cref="Record"/> to transmit</param>
@@ -65,7 +65,7 @@ namespace TimeRecordingTerminal
             MyCouch.Responses.EntityResponse<Record> reponse = await client.Entities.PostAsync(insert);
         }
         /// <summary>
-        /// Function in <see cref="LocalDB"/> to Transmit a single <see cref="Record"/>.
+        /// Function in <see cref="LocalDB"/> to transmit a single <see cref="Record"/>.
         /// </summary>
         /// <param name="client">Target <see cref="MyCouchClient"/></param>
         /// <param name="card"><see cref="Card"/> to transmit</param>
@@ -77,7 +77,7 @@ namespace TimeRecordingTerminal
             Console.ReadLine();
         }
         /// <summary>
-        /// Function in <see cref="LocalDB"/> to replicate the local DB to all other DBs in LAN. Sends a HTTP request. Database will handle replication afterwards./>.
+        /// Function in <see cref="LocalDB"/> to replicate the local DB to all other DBs in LAN. Sends a HTTP request. Database will handle replication afterwards.
         /// </summary>
         /// <param name="client">Target <see cref="MyCouchClient"/></param>
         /// <param name="DBName">Name of the database.</param>
@@ -97,7 +97,7 @@ namespace TimeRecordingTerminal
 
         }
         /// <summary>
-        /// Function in <see cref="LocalDB"/> to Transmit all <see cref="Record"/> in <see cref="LocalDB.Recordqueue"/> to the <see cref="MyCouchClient"/> every 10 seconds.
+        /// Function in <see cref="LocalDB"/> to transmit all <see cref="Record"/>s in <see cref="LocalDB.Recordqueue"/> to the <see cref="MyCouchClient"/> every 10 seconds.
         /// </summary>
         /// <param name="client"><see cref="MyCouchClient"/></param>
         public static void Transmitter(MyCouchClient client)
@@ -125,14 +125,14 @@ namespace TimeRecordingTerminal
         /// </summary>
         /// <param name="KartenNummer"><see cref="Record.kartenNummer"/> to check.</param>
         /// <param name="record">Returns the edited <see cref="Record"/></param>
-        /// <returns>true when there is exact one unfinished Record. False when there are more then one or no unfinished Records.</returns>
+        /// <returns>true when there is exactly one unfinished Record. False when there are more then one or no unfinished Records.</returns>
         public static bool checkRecords(string KartenNummer, out Record record)
         {
 
 
             #region QueryViewRequest
 
-            MyCouch.Requests.QueryViewRequest query = new MyCouch.Requests.QueryViewRequest("_design/view/_view/erledigt");
+            MyCouch.Requests.QueryViewRequest query = new MyCouch.Requests.QueryViewRequest("view","erledigt");
             query.Configure(cfg => cfg.Key(KartenNummer));
             var response = LocalDB.ClientBuilder(ConfigReader.getConfig()).Views.QueryAsync<Record[]>(query);
             #endregion
@@ -170,10 +170,10 @@ namespace TimeRecordingTerminal
             await client.Documents.DeleteAsync(id, rev);
         }
         /// <summary>
-        /// Function in <see cref="LocalDB"/> to copy a single <see cref="Record"/> from the <see cref="MyCouchClient"/>.
+        /// Function in <see cref="LocalDB"/> to copy a single <see cref="Record"/> from all records in <see cref="MyCouchClient"/>.
         /// </summary>
         /// <param name="id">ID of the Entry</param>
-        /// <returns></returns>
+        /// <returns>Returns a <see cref="Record"/> Entityresponse.rasp</returns>
         public static MyCouch.Responses.EntityResponse<Record> copyEntry(string id)
         {
             MyCouchClient client = LocalDB.ClientBuilder(ConfigReader.getConfig());
@@ -181,11 +181,11 @@ namespace TimeRecordingTerminal
             return record;
         }
         /// <summary>
-        /// Function in <see cref="LocalDB"/> to check a <see cref="Record"/> "KartenNummer" in the <see cref="MyCouchClient"/> Database. Valid will be true when the KartenNummer is valid.
+        /// Function in <see cref="LocalDB"/> to check a <see cref="Record"/> "KartenNummer" in the <see cref="MyCouchClient"/> Database. "Valid" will be true when the KartenNummer is valid.
         /// </summary>
         /// <param name="record"><see cref="Record"/> to check.</param>
         /// <param name="valid">True if <see cref="Record"/> is valid</param>
-        /// <returns>returns the modified <see cref="Record"/>. When Card is OK it will add the <see cref="Record.studentID"/>, <see cref="Record.kartenID"/> and <see cref="Record"/></returns>
+        /// <returns>Returns the modified <see cref="Record"/>. When Card is OK it will add the <see cref="Record.studentID"/>, <see cref="Record.kartenID"/> and <see cref="Record"/></returns>
         public static Record checkCardnumber(Record record, out bool valid)
         {
             MyCouchClient client = LocalDB.ClientBuilder(ConfigReader.getConfig(), true);
@@ -246,8 +246,30 @@ namespace TimeRecordingTerminal
             }
             return list;
         }
+        public static List<MyCouch.Responses.EntityResponse<Record>> GetRecords(MyCouchClient client,bool uselessbool)
+        {
+            List<MyCouch.Responses.EntityResponse<Record>> list = new List<MyCouch.Responses.EntityResponse<Record>>();
+            var query = new MyCouch.Requests.QueryViewRequest("view2", "fertigeRecords");
+
+            try
+            {
+                var response = client.Views.QueryAsync<Record>(query);
+
+                for (int i = 0; i < response.Result.RowCount; i++)
+                {
+                    MyCouch.Responses.EntityResponse<Record> recordresponse = copyEntry(response.Result.Rows[i].Id);
+                    list.Add(recordresponse);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+            return list;
+        }
         /// <summary>
-        /// Function in <see cref="LocalDB"/> to get transmit all <see cref="Record"/>s in the <see cref="MyCouchClient"/> Database to the <see cref="ExternalDB"/>.
+        /// Function in <see cref="LocalDB"/> to transmit all <see cref="Record"/>s in the <see cref="MyCouchClient"/> Database to the <see cref="ExternalDB"/>.
         /// </summary>
         public static void midnightsync()
         {
@@ -263,7 +285,7 @@ namespace TimeRecordingTerminal
                         for(int i =0; i<response.Result.RowCount; i++)
                         {
                             response.Result.Rows[i].Value.completeRecord(0, DateTime.Now.ToString("yyyy-dd-MM ") + "23:59:00.000");
-                            ExternalDB.Transmit(ExternalDB.CreateConnString(), response.Result.Rows[i].Value);
+                            MS_ExternalDB.Transmit(MS_ExternalDB.CreateConnString(), response.Result.Rows[i].Value);
                         }
                         
 

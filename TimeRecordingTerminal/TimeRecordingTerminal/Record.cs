@@ -2,10 +2,12 @@
 {
     /// <summary>
     /// Record is a Class which stores the information for one Record.
-    /// A Record runs threw two steps:
+    /// A Record runs through two steps:
+    /// 
     ///     Step1: When a new KartenNummer arrives it will create a new Record with KartenNummer
     ///            ReaderIDKommen (ID of Terminal where action happened), Kommen (Time of arrival)
     ///            and erledigt will be false -> The Record is not finished now!
+    ///            
     ///     Step2: Record finishes when KartenNummer arrives second time.
     ///            ReaderIDGehen will be saved and the time Gehen (departure) and erledigt will be true. Record is completed!
     /// </summary>
@@ -20,19 +22,19 @@
         /// </summary>
         public string kartenID;
         /// <summary>
-        /// KartenNummer is the Tag from the Card.
+        /// KartenNummer is the Tag of the Card.
         /// </summary>
         public string kartenNummer;
         /// <summary>
-        /// studentID is the ID from the Student who owns the Card.
+        /// studentID is the ID of the Student who owns the Card.
         /// </summary>
         public string studentID;
         /// <summary>
-        /// The ID from the Terminal where the user arrived.
+        /// The ID of the Terminal where the user arrived.
         /// </summary>
         public int readerIDKommen;
         /// <summary>
-        /// The ID from the Terminal where the user left.
+        /// The ID of the Terminal where the user left.
         /// </summary>
         public int readerIDGehen;
         /// <summary>
@@ -80,7 +82,7 @@
                 erledigt = true;
                 gueltig = true;
             }
-            if (kartenNummer != null && kommen != null && gehen != null && !gehen.Contains("23:59"))
+            if (kartenNummer != null && kommen != null && gehen != null && gehen.Contains("23:59"))
             {
                 erledigt = true;
                 gueltig = false;

@@ -10,7 +10,7 @@ namespace TimeRecordingTerminal
         /// <summary>
         /// Function getConfig from <see cref="ConfigReader"/> which returns a <see cref="Config"/>. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns a <see cref="Config"/>.</returns>
         public static Config getConfig()
         {
             Config temp_config = new Config();

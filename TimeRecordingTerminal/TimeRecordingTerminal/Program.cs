@@ -17,8 +17,8 @@ namespace TimeRecordingTerminal
             string cmd;
             
             //uncomment next line and comment the line after next to activate the menu(for testing...)
-            //cmd = Console.ReadLine();
-            cmd = "RUN";
+            cmd = Console.ReadLine();
+            //cmd = "RUN";
             #endregion
             #region NormalMode
             if (cmd.Equals("RUN"))
@@ -30,10 +30,10 @@ namespace TimeRecordingTerminal
                 List<Record> list = LocalDB.GetRecords(LocalDB.ClientBuilder(config));
                 Console.WriteLine("Starting Discoveryservice...");
                 Thread NetworkWatcher = new Thread(() => Discoveryservice.Discover());
-                NetworkWatcher.Start();
+                //NetworkWatcher.Start();
                 Console.WriteLine("Starting SyncBuchungen...");
-                Thread SyncBuchungen = new Thread(() => ExternalDB.SyncBuchungen());
-                //SyncBuchungen.Start();
+                Thread SyncBuchungen = new Thread(() => MS_ExternalDB.SyncBuchungen());
+                SyncBuchungen.Start();
                 Console.WriteLine("Starting Transmitter...");
                 Thread autotransmit = new Thread(() => LocalDB.Transmitter(LocalDB.ClientBuilder(config)));
                 autotransmit.Start();
@@ -41,8 +41,9 @@ namespace TimeRecordingTerminal
                 Thread Midnightsync = new Thread(() => LocalDB.midnightsync());
                 Midnightsync.Start();
                 Console.WriteLine("Starting Cardsync...");
-                Thread Cardsync = new Thread(() => ExternalDB.SyncCards());
-                //Cardsync.Start();
+                Thread Cardsync = new Thread(() => MS_ExternalDB.SyncCards());
+                Cardsync.Start();
+                
                 Console.WriteLine("Starting Cardlockchecker...");
                 Thread cardlockchecker = new Thread(() => CardLock.cardlockchecker());
                 cardlockchecker.Start();
@@ -73,7 +74,6 @@ namespace TimeRecordingTerminal
                 test();
             }
             #endregion
-            Console.ReadLine();
         }
         public static async void initialise()
         {
@@ -98,7 +98,7 @@ namespace TimeRecordingTerminal
                 Thread.Sleep(1500);
                 Console.WriteLine("\"Karten\" Database ready!");
                 #endregion
-                //ExternalDB.SyncCards();
+                //MS_ExternalDB.SyncCards();
                 #region CreateViews
                 Console.WriteLine("Setting up \"erledigt\" View...");
                 CouchViews.createerledigtview();
@@ -106,7 +106,12 @@ namespace TimeRecordingTerminal
                 Console.WriteLine("\"erledigt\" View ready!");
                 Console.WriteLine("Setting up \"KartenNummer\" View...");
                 CouchViews.createKartenNummerview();
+                Thread.Sleep(1000);
                 Console.WriteLine("\"KartenNummer\" View ready!");
+                Console.WriteLine("Setting up \"fertigeRecords\" View...");
+                CouchViews.createfertigeRecordsview();
+                Thread.Sleep(1000);
+                Console.WriteLine("\"fertigeRecords\" View ready!");
                 Console.WriteLine("-----------------------------------------");
                 Console.WriteLine("Terminal ready for use!");
                 #endregion
@@ -118,7 +123,11 @@ namespace TimeRecordingTerminal
         }
         public static void test()
         {
-          //Testfunction, to whatever you want
+            //Testfunction, do whatever you want
+            Record record = new Record("1A4E6B08", 1, DateTime.Now.ToString());
+            record.completeRecord(1, DateTime.Now.ToString());
+            record.studentID = "123";
+            MS_ExternalDB.Transmit(MS_ExternalDB.CreateConnString(), record);
         }
 
 

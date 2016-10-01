@@ -11,7 +11,7 @@ namespace TimeRecordingTerminal
     public class Discoveryservice
     {
         /// <summary>
-        /// Funktion in <see cref="Discoveryservice"/> to Browse for other "TimeRecordingTerminals" in the domain: local
+        /// Function in <see cref="Discoveryservice"/> to browse for other "TimeRecordingTerminals" in the domain: local
         /// </summary>
         public static void Discover()
         {

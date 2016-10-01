@@ -6,7 +6,7 @@
     public struct Config
     {
         /// <summary>
-        /// That's the local IP from the Database (IP:Port, e.g.: 127.0.0.1:5984)
+        /// That's the local IP of the Database (IP:Port, e.g.: 127.0.0.1:5984)
         /// </summary>
         public string dbip; //IP of Local database
         /// <summary>
@@ -38,11 +38,11 @@
         /// </summary>
         public string hostname;
         /// <summary>
-        /// IP from the external database
+        /// IP of the external database
         /// </summary>
         public string ext_server;
         /// <summary>
-        /// Name from external Database
+        /// Name of the external Database
         /// </summary>
         public string ext_db;
         /// <summary>

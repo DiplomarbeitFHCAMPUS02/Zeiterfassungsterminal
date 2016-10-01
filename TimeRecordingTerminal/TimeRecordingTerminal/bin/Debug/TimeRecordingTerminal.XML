@@ -66,7 +66,7 @@
         </member>
         <member name="F:TimeRecordingTerminal.Config.dbip">
             <summary>
-            That's the local IP from the Database (IP:Port, e.g.: 127.0.0.1:5984)
+            That's the local IP of the Database (IP:Port, e.g.: 127.0.0.1:5984)
             </summary>
         </member>
         <member name="F:TimeRecordingTerminal.Config.username">
@@ -106,12 +106,12 @@
         </member>
         <member name="F:TimeRecordingTerminal.Config.ext_server">
             <summary>
-            IP from the external database
+            IP of the external database
             </summary>
         </member>
         <member name="F:TimeRecordingTerminal.Config.ext_db">
             <summary>
-            Name from external Database
+            Name of the external Database
             </summary>
         </member>
         <member name="F:TimeRecordingTerminal.Config.ext_userid">
@@ -153,7 +153,7 @@
             <summary>
             Function getConfig from <see cref="T:TimeRecordingTerminal.ConfigReader"/> which returns a <see cref="T:TimeRecordingTerminal.Config"/>. 
             </summary>
-            <returns></returns>
+            <returns>Returns a <see cref="T:TimeRecordingTerminal.Config"/>.</returns>
         </member>
         <member name="T:TimeRecordingTerminal.CouchViews">
             <summary>
@@ -162,12 +162,17 @@
         </member>
         <member name="M:TimeRecordingTerminal.CouchViews.createKartenNummerview">
             <summary>
-            Funktion in <see cref="T:TimeRecordingTerminal.CouchViews"/> which creates a View which will show the <see cref="F:TimeRecordingTerminal.Record.kartenNummer"/> and the relating <see cref="T:TimeRecordingTerminal.Record"/>.
+            Function in <see cref="T:TimeRecordingTerminal.CouchViews"/> to create a view which will show the <see cref="F:TimeRecordingTerminal.Record.kartenNummer"/> and the relating <see cref="T:TimeRecordingTerminal.Record"/>.
             </summary>
         </member>
         <member name="M:TimeRecordingTerminal.CouchViews.createerledigtview">
             <summary>
-            Funktion in <see cref="T:TimeRecordingTerminal.CouchViews"/> which creates a View which will show all not finished <see cref="T:TimeRecordingTerminal.Record"/>s. <seealso cref="F:TimeRecordingTerminal.Record.erledigt"/>
+            Function in <see cref="T:TimeRecordingTerminal.CouchViews"/> to create a view which will show all not finished <see cref="T:TimeRecordingTerminal.Record"/>s. <seealso cref="F:TimeRecordingTerminal.Record.erledigt"/>
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.CouchViews.createfertigeRecordsview">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.CouchViews"/> to create a view which will show all finished <see cref="T:TimeRecordingTerminal.Record"/> <seealso cref="F:TimeRecordingTerminal.Record.erledigt"/>  
             </summary>
         </member>
         <member name="T:TimeRecordingTerminal.Discoveryservice">
@@ -177,12 +182,78 @@
         </member>
         <member name="M:TimeRecordingTerminal.Discoveryservice.Discover">
             <summary>
-            Funktion in <see cref="T:TimeRecordingTerminal.Discoveryservice"/> to Browse for other "TimeRecordingTerminals" in the domain: local
+            Function in <see cref="T:TimeRecordingTerminal.Discoveryservice"/> to browse for other "TimeRecordingTerminals" in the domain: local
             </summary>
+        </member>
+        <member name="T:TimeRecordingTerminal.MS_ExternalDB">
+            <summary>
+            External DB includes useful functions for working with an external MySQL Database
+            Part of Code from "http://www.codeproject.com/Articles/43438/Connect-C-to-MySQL". Modified and added some functions.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.CreateConnString">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to create a connection to <see cref="T:System.Data.SqlClient.SqlConnection"/>.
+            </summary>
+            <returns>Returns a <see cref="T:System.Data.SqlClient.SqlConnection"/></returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.OpenConnection(System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Function in <see cref="T:TimeRecordingTerminal.ExternalDB"/>to try opening a connection to <see cref="T:System.Data.SqlClient.SqlConnection"/>.
+            </summary>
+            <param name="connection">Connection string for <see cref="T:System.Data.SqlClient.SqlConnection"/></param>
+            <returns>Returns true if opening a <see cref="T:System.Data.SqlClient.SqlConnection"/> succeeds, otherwise returns false and throws an error in the console.</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.CloseConnection(System.Data.SqlClient.SqlConnection)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> for closing the <see cref="T:System.Data.SqlClient.SqlConnection"/>.
+            </summary>
+            <param name="connection"><see cref="T:System.Data.SqlClient.SqlConnection"/></param>
+            <returns>Returns true if closing connection succeeds, otherwise returns false and an error in the console.</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.Insert(System.Data.SqlClient.SqlConnection,TimeRecordingTerminal.Record)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to add a <see cref="T:TimeRecordingTerminal.Record"/> to <see cref="T:System.Data.SqlClient.SqlConnection"/>.
+            </summary>
+            <param name="connection"><see cref="T:System.Data.SqlClient.SqlConnection"/></param>
+            <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.SyncBuchungen">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/>to synchronise every 10 minutes from the local to the external database.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.CheckEntry(System.Data.SqlClient.SqlConnection,TimeRecordingTerminal.Record)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to check if a specific <see cref="T:TimeRecordingTerminal.Record"/> is already in the database.
+            </summary>
+            <param name="connection"><see cref="T:System.Data.SqlClient.SqlConnection"/></param>
+            <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
+            <returns>Returns true if there is no Entry.</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.CopyCards(System.Data.SqlClient.SqlConnection)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> that returns content from the table "zeitkarten".
+            </summary>
+            <param name="connection"><see cref="T:System.Data.SqlClient.SqlConnection"/></param>
+            <returns>Returns a Stringarraylist.</returns>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.SyncCards">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to receive a list of <see cref="T:TimeRecordingTerminal.Record"/>  from the local database and sends it to the external database.
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.MS_ExternalDB.Transmit(System.Data.SqlClient.SqlConnection,TimeRecordingTerminal.Record)">
+            <summary>
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to check if a specific <see cref="T:TimeRecordingTerminal.Record"/> is already in the table, if not it will be added to the table.
+            </summary>
+            <param name="connection"><see cref="T:System.Data.SqlClient.SqlConnection"/></param>
+            <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
         </member>
         <member name="T:TimeRecordingTerminal.ExternalDB">
             <summary>
             External DB includes useful functions for working with an external MySQL Database
+            Part of Code from "http://www.codeproject.com/Articles/43438/Connect-C-to-MySQL". Modified and added some functions.
             </summary>
         </member>
         <member name="M:TimeRecordingTerminal.ExternalDB.CreateConnString">
@@ -219,18 +290,18 @@
         </member>
         <member name="M:TimeRecordingTerminal.ExternalDB.CheckEntry(MySql.Data.MySqlClient.MySqlConnection,TimeRecordingTerminal.Record)">
             <summary>
-            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/>to check if the <see cref="T:TimeRecordingTerminal.Record"/> is already in the database.
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to check if a specific <see cref="T:TimeRecordingTerminal.Record"/> is already in the database.
             </summary>
             <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
             <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
-            <returns></returns>
+            <returns>Returns true if there is no Entry.</returns>
         </member>
         <member name="M:TimeRecordingTerminal.ExternalDB.CopyCards(MySql.Data.MySqlClient.MySqlConnection)">
             <summary>
-            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/>that returns the content from the table "zeitkarten".
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> that returns content from the table "zeitkarten".
             </summary>
             <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
-            <returns></returns>
+            <returns>Returns a Stringarraylist.</returns>
         </member>
         <member name="M:TimeRecordingTerminal.ExternalDB.SyncCards">
             <summary>
@@ -239,7 +310,7 @@
         </member>
         <member name="M:TimeRecordingTerminal.ExternalDB.Transmit(MySql.Data.MySqlClient.MySqlConnection,TimeRecordingTerminal.Record)">
             <summary>
-            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to check if the <see cref="T:TimeRecordingTerminal.Record"/> is already in the table, and if not it will be added to the table.
+            A function in <see cref="T:TimeRecordingTerminal.ExternalDB"/> to check if a specific <see cref="T:TimeRecordingTerminal.Record"/> is already in the table, if not it will be added to the table.
             </summary>
             <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
             <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
@@ -267,7 +338,7 @@
             </summary>
             <param name="config"><see cref="T:TimeRecordingTerminal.Config"/></param>
             <param name="dbkarten">True if it should create <see cref="T:MyCouch.MyCouchClient"/> with "Karten" table.</param>
-            <returns></returns>
+            <returns>returns a <see cref="T:MyCouch.MyCouchClient"/></returns>
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.ServerClientBuilder(TimeRecordingTerminal.Config)">
             <summary>
@@ -278,21 +349,21 @@
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.Transmit(MyCouch.MyCouchClient,TimeRecordingTerminal.Record)">
             <summary>
-            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to Transmit a single <see cref="T:TimeRecordingTerminal.Record"/>.
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to transmit a single <see cref="T:TimeRecordingTerminal.Record"/>.
             </summary>
             <param name="client">Target <see cref="T:MyCouch.MyCouchClient"/></param>
             <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.Transmit(MyCouch.MyCouchClient,TimeRecordingTerminal.Card)">
             <summary>
-            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to Transmit a single <see cref="T:TimeRecordingTerminal.Record"/>.
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to transmit a single <see cref="T:TimeRecordingTerminal.Record"/>.
             </summary>
             <param name="client">Target <see cref="T:MyCouch.MyCouchClient"/></param>
             <param name="card"><see cref="T:TimeRecordingTerminal.Card"/> to transmit</param>
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.replicate(MyCouch.MyCouchServerClient,System.String,System.String)">
             <summary>
-            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to replicate the local DB to all other DBs in LAN. Sends a HTTP request. Database will handle replication afterwards./>.
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to replicate the local DB to all other DBs in LAN. Sends a HTTP request. Database will handle replication afterwards.
             </summary>
             <param name="client">Target <see cref="T:MyCouch.MyCouchClient"/></param>
             <param name="DBName">Name of the database.</param>
@@ -300,7 +371,7 @@
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.Transmitter(MyCouch.MyCouchClient)">
             <summary>
-            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to Transmit all <see cref="T:TimeRecordingTerminal.Record"/> in <see cref="F:TimeRecordingTerminal.LocalDB.Recordqueue"/> to the <see cref="T:MyCouch.MyCouchClient"/> every 10 seconds.
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to transmit all <see cref="T:TimeRecordingTerminal.Record"/>s in <see cref="F:TimeRecordingTerminal.LocalDB.Recordqueue"/> to the <see cref="T:MyCouch.MyCouchClient"/> every 10 seconds.
             </summary>
             <param name="client"><see cref="T:MyCouch.MyCouchClient"/></param>
         </member>
@@ -310,7 +381,7 @@
             </summary>
             <param name="KartenNummer"><see cref="F:TimeRecordingTerminal.Record.kartenNummer"/> to check.</param>
             <param name="record">Returns the edited <see cref="T:TimeRecordingTerminal.Record"/></param>
-            <returns>true when there is exact one unfinished Record. False when there are more then one or no unfinished Records.</returns>
+            <returns>true when there is exactly one unfinished Record. False when there are more then one or no unfinished Records.</returns>
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.deleteRecord(System.String,System.String)">
             <summary>
@@ -321,18 +392,18 @@
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.copyEntry(System.String)">
             <summary>
-            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to copy a single <see cref="T:TimeRecordingTerminal.Record"/> from the <see cref="T:MyCouch.MyCouchClient"/>.
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to copy a single <see cref="T:TimeRecordingTerminal.Record"/> from all records in <see cref="T:MyCouch.MyCouchClient"/>.
             </summary>
             <param name="id">ID of the Entry</param>
-            <returns></returns>
+            <returns>Returns a <see cref="T:TimeRecordingTerminal.Record"/> Entityresponse.rasp</returns>
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.checkCardnumber(TimeRecordingTerminal.Record,System.Boolean@)">
             <summary>
-            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to check a <see cref="T:TimeRecordingTerminal.Record"/> "KartenNummer" in the <see cref="T:MyCouch.MyCouchClient"/> Database. Valid will be true when the KartenNummer is valid.
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to check a <see cref="T:TimeRecordingTerminal.Record"/> "KartenNummer" in the <see cref="T:MyCouch.MyCouchClient"/> Database. "Valid" will be true when the KartenNummer is valid.
             </summary>
             <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to check.</param>
             <param name="valid">True if <see cref="T:TimeRecordingTerminal.Record"/> is valid</param>
-            <returns>returns the modified <see cref="T:TimeRecordingTerminal.Record"/>. When Card is OK it will add the <see cref="F:TimeRecordingTerminal.Record.studentID"/>, <see cref="F:TimeRecordingTerminal.Record.kartenID"/> and <see cref="T:TimeRecordingTerminal.Record"/></returns>
+            <returns>Returns the modified <see cref="T:TimeRecordingTerminal.Record"/>. When Card is OK it will add the <see cref="F:TimeRecordingTerminal.Record.studentID"/>, <see cref="F:TimeRecordingTerminal.Record.kartenID"/> and <see cref="T:TimeRecordingTerminal.Record"/></returns>
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.GetRecords(MyCouch.MyCouchClient)">
             <summary>
@@ -343,16 +414,18 @@
         </member>
         <member name="M:TimeRecordingTerminal.LocalDB.midnightsync">
             <summary>
-            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to get transmit all <see cref="T:TimeRecordingTerminal.Record"/>s in the <see cref="T:MyCouch.MyCouchClient"/> Database to the <see cref="T:TimeRecordingTerminal.ExternalDB"/>.
+            Function in <see cref="T:TimeRecordingTerminal.LocalDB"/> to transmit all <see cref="T:TimeRecordingTerminal.Record"/>s in the <see cref="T:MyCouch.MyCouchClient"/> Database to the <see cref="T:TimeRecordingTerminal.ExternalDB"/>.
             </summary>
         </member>
         <member name="T:TimeRecordingTerminal.Record">
             <summary>
             Record is a Class which stores the information for one Record.
-            A Record runs threw two steps:
+            A Record runs through two steps:
+            
                 Step1: When a new KartenNummer arrives it will create a new Record with KartenNummer
                        ReaderIDKommen (ID of Terminal where action happened), Kommen (Time of arrival)
                        and erledigt will be false -> The Record is not finished now!
+                       
                 Step2: Record finishes when KartenNummer arrives second time.
                        ReaderIDGehen will be saved and the time Gehen (departure) and erledigt will be true. Record is completed!
             </summary>
@@ -364,22 +437,22 @@
         </member>
         <member name="F:TimeRecordingTerminal.Record.kartenNummer">
             <summary>
-            KartenNummer is the Tag from the Card.
+            KartenNummer is the Tag of the Card.
             </summary>
         </member>
         <member name="F:TimeRecordingTerminal.Record.studentID">
             <summary>
-            studentID is the ID from the Student who owns the Card.
+            studentID is the ID of the Student who owns the Card.
             </summary>
         </member>
         <member name="F:TimeRecordingTerminal.Record.readerIDKommen">
             <summary>
-            The ID from the Terminal where the user arrived.
+            The ID of the Terminal where the user arrived.
             </summary>
         </member>
         <member name="F:TimeRecordingTerminal.Record.readerIDGehen">
             <summary>
-            The ID from the Terminal where the user left.
+            The ID of the Terminal where the user left.
             </summary>
         </member>
         <member name="F:TimeRecordingTerminal.Record.erledigt">
@@ -541,7 +614,7 @@
             </summary>
             <param name="pin">The Pin of the Buzzer (GPIO PIN!)</param>
             <param name="duration">The time how long a single tone should last for.</param>
-            <param name="repeats">The amount of repeats</param>
+            <param name="repeats">The humber of repeats</param>
         </member>
     </members>
 </doc>
