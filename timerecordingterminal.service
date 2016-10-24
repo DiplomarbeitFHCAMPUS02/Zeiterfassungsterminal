@@ -1,0 +1,11 @@
+#!/bin/bash -
+[Unit]
+Description=Timerecordingterminal startup
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/timerecordingterminal
+
+[Install]
+WantedBy=multi-user.target

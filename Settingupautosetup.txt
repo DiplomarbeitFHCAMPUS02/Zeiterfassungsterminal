@@ -1,0 +1,17 @@
+#put these files on /home/pi
+TimeRecordingTerminal(Programfolder)
+hostname.sh
+terminalsetup.sh
+default.ini
+avahi-daemon.conf
+sources.list
+
+#install crontab
+sudo apt-get install gnome-schedule
+crontab -e
+
+#use this commands to add scripts to autostart
+crontab -l | { cat; echo "@reboot sudo sh /home/pi/terminalsetup.sh & > /home/pi/cronlog.txt"; } | crontab -
+
+
+#On next reboot it will install everything on startup

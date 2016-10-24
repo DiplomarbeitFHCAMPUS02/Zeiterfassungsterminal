@@ -1,0 +1,7 @@
+crontab -l | { cat; echo "@reboot sudo mono /home/pi/TimeRecordingTerminal.exe"; } | crontab -
+
+hostname script
+sleep 10
+sudo hostname $(ifconfig | grep "HWaddr" | cut -d" " -f11 | tr -s ":" ".")
+
+crontab -l | { cat; echo "@reboot sudo sh /home/pi/hostname.sh"; } | crontab -
