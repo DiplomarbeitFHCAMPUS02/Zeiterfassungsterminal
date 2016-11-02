@@ -12,3 +12,17 @@ C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecor
 C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\obj\Release\TimeRecordingTerminal.csprojResolveAssemblyReference.cache
 C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\obj\Release\TimeRecordingTerminal.exe
 C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\TimeRecordingTerminal\TimeRecordingTerminal\obj\Release\TimeRecordingTerminal.pdb
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\TimeRecordingTerminal.exe.config
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\obj\Release\TimeRecordingTerminal.exe
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\obj\Release\TimeRecordingTerminal.pdb
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\TimeRecordingTerminal.exe
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\TimeRecordingTerminal.pdb
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\Mono.Zeroconf.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\Mono.Zeroconf.Providers.Bonjour.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\MyCouch.Net45.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\MySql.Data.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\Newtonsoft.Json.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\SharpNFC.dll
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\MyCouch.Net45.xml
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\bin\Release\Newtonsoft.Json.xml
+C:\Users\Markus\OneDrive\Diplomarbeit_FHCampus02\!!!FinalRelease\TimeRecordingTerminal\TimeRecordingTerminal\obj\Release\TimeRecordingTerminal.csprojResolveAssemblyReference.cache
