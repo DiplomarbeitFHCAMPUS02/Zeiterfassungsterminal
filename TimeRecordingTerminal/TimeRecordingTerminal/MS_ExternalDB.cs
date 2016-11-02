@@ -137,14 +137,13 @@ namespace TimeRecordingTerminal
                         }
                     }
 
-                    //Thread.Sleep(10 * 60 * 1000);
-                    Thread.Sleep(10000);
+                    
                 }
                 catch (Exception e)
                 {
-                    //Console.WriteLine(e.Message);
+                    Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(200000);
+                Thread.Sleep(10 * 60 * 1000);
             }
         }
         /// <summary>

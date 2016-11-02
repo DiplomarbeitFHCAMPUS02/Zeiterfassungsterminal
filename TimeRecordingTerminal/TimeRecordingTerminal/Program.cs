@@ -17,8 +17,8 @@ namespace TimeRecordingTerminal
             string cmd;
             
             //uncomment next line and comment the line after next to activate the menu(for testing...)
-            cmd = Console.ReadLine();
-            //cmd = "RUN";
+            //cmd = Console.ReadLine();
+            cmd = "RUN";
             #endregion
             #region NormalMode
             if (cmd.Equals("RUN"))
@@ -30,7 +30,7 @@ namespace TimeRecordingTerminal
                 List<Record> list = LocalDB.GetRecords(LocalDB.ClientBuilder(config));
                 Console.WriteLine("Starting Discoveryservice...");
                 Thread NetworkWatcher = new Thread(() => Discoveryservice.Discover());
-                //NetworkWatcher.Start();
+                NetworkWatcher.Start();
                 Console.WriteLine("Starting SyncBuchungen...");
                 Thread SyncBuchungen = new Thread(() => MS_ExternalDB.SyncBuchungen());
                 SyncBuchungen.Start();

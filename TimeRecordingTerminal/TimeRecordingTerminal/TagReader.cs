@@ -31,11 +31,17 @@ namespace TimeRecordingTerminal
         /// <returns>Returns a <see cref="Record"/></returns>
         protected Record createRecord(string KartenNummer)
         {
-            int ID;
-            if(!int.TryParse(Dns.GetHostName().Replace(".", string.Empty), out ID))
+            int ID = 0;
+
+            try
             {
-                ID = 9999;
+                ID = Convert.ToInt32(Dns.GetHostName().Replace(".", string.Empty), 16);
             }
+            catch (Exception)
+            {
+                
+            }
+
             return new Record(KartenNummer, ID , DateTime.Now.ToString("yyyy-dd-MM HH:mm:ss.ms"));
         }
 
