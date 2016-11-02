@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USERNAME=pi
+USERNAME=$(whoami)
 
 function install_base {
 	#upgrade
@@ -9,6 +9,10 @@ function install_base {
 	
 	#CouchDB
 	sudo apt-get install -y couchdb
+
+	sudo sed -i 's/^.*bind_address = .*$/bind_address = 0.0.0.0/' /etc/couchdb/local.ini
+	sudo sed -i 's/^.*admin = .*$/admin = pw/' /etc/couchdb/local.ini
+	sudo systemctl restart couchdb
 }
 
 function install_pn532 {
@@ -29,7 +33,7 @@ function install_pn532 {
 	sudo apt-get install -y autoconf libtool
 	sudo apt-get install -y libpcsclite-dev libusb-dev
 	autoreconf -vis
-	./configure --with-drivers=pn532_uart --sysconfdir=/etc --prefi=/usr
+	./configure --with-drivers=pn532_uart --sysconfdir=/etc --prefix=/usr
 	sudo make clean
 	sudo make install all
 	popd
@@ -42,8 +46,11 @@ function install_mono {
 	sudo apt-get install -y avahi-daemon
 	#Dnssd Lib for Program
 	sudo apt-get install -y libavahi-compat-libdnssd-dev
+	#mono zeroconf
+	sudo apt-get install -y libmono-zeroconf1.0-cil
 	#set hostname and hostname for avahi
 	sudo cp avahi-daemon.conf /etc/avahi/
+	sudo systemctl restart avahi-daemon
 }
 
 
@@ -62,23 +69,26 @@ EOF
 
 
 function setup_autostart {
-	
+	chmod a+x $(pwd)/TimeRecordingTerminal/TimeRecordingTerminal/bin/Release/TimeRecordingTerminal.exe
+	sed -i '/\/dev\/tty1/,/^fi$/d' $HOME/.profile
+	cat >> $HOME/.profile <<EOF
+if [ "\$(tty)" == "/dev/tty1" ]; then
+	sudo hostname \$(ifconfig | grep "HWaddr" | cut -d" " -f11 | tr -d ":")
+	$(pwd)/TimeRecordingTerminal/TimeRecordingTerminal/bin/Release/TimeRecordingTerminal.exe
+fi
+EOF
 }
 
-#install_base
-#install_pn532
-#install_mono
-#setup_autologin
+function setup_uart {
+	sudo sed -i '/enable_uart=[10]/d' /boot/config.txt
+	echo 'enable_uart=1' | sudo tee -a /boot/config.txt
+	echo 'You still need to disable the serial console via "sudo raspi-config" and reboot.'
+}
+
+install_base
+install_pn532
+install_mono
+setup_autologin
 setup_autostart
-
-###add TimeRecordingTerminal to autostart
-##touch tempbash
-##head -n -1 .bashrc tempbash; mv tempbash .bashrc
-##crontab -u pi -l | { cat; echo "@reboot sudo mono /home/pi/TimeRecordingTermina$
-###add hostname.sh to autostart on reboot to set hostname to macaddress
-##crontab -u pi -l | { cat; echo "@reboot sudo sh /home/pi/hostname.sh &"; } | cr$
-
-###setup for services
-##sudo systemctl enable systemd-networkd-wait-online.service
-##sudo systemctl enable timerecordingterminal.service
+setup_uart
 
