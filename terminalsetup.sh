@@ -69,12 +69,12 @@ EOF
 
 
 function setup_autostart {
-	chmod a+x $(pwd)/Zeiterfassungsterminal/TimeRecordingTerminal/TimeRecordingTerminal/bin/Release/TimeRecordingTerminal.exe
+	chmod a+x $(pwd)/TimeRecordingTerminal/TimeRecordingTerminal/bin/Release/TimeRecordingTerminal.exe
 	sed -i '/\/dev\/tty1/,/^fi$/d' $HOME/.profile
 	cat >> $HOME/.profile <<EOF
 if [ "\$(tty)" == "/dev/tty1" ]; then
 	sudo hostname \$(ifconfig | grep "HWaddr" | cut -d" " -f11 | tr -d ":")
-	$(pwd)/TimeRecordingTerminal/Zeiterfassungsterminal/TimeRecordingTerminal/bin/Release/TimeRecordingTerminal.exe
+	$(pwd)/TimeRecordingTerminal/TimeRecordingTerminal/bin/Release/TimeRecordingTerminal.exe
 fi
 EOF
 }
