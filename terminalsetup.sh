@@ -82,7 +82,6 @@ EOF
 function setup_uart {
 	sudo sed -i '/enable_uart=[10]/d' /boot/config.txt
 	echo 'enable_uart=1' | sudo tee -a /boot/config.txt
-	echo 'You still need to disable the serial console via "sudo raspi-config" and reboot.'
 }
 
 install_base
