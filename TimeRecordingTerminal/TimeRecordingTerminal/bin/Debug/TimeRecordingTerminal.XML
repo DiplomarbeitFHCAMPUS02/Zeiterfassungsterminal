@@ -315,6 +315,19 @@
             <param name="connection"><see cref="T:MySql.Data.MySqlClient.MySqlConnection"/></param>
             <param name="record"><see cref="T:TimeRecordingTerminal.Record"/> to transmit</param>
         </member>
+        <member name="T:TimeRecordingTerminal.Notification">
+            <summary>
+            A class to control the GPIO Pins on a Raspberry PI
+            </summary>
+        </member>
+        <member name="M:TimeRecordingTerminal.Notification.playsound(System.Int32)">
+            <summary>
+            Function in <see cref="!:GPIOPin"/> to play a sound.
+            </summary>
+            <param name="pin">The Pin of the Buzzer (GPIO PIN!)</param>
+            <param name="duration">The time how long a single tone should last for.</param>
+            <param name="repeats">The humber of repeats</param>
+        </member>
         <member name="T:TimeRecordingTerminal.LocalDB">
             <summary>
             LocalDB class includes useful functions for working with CouchDB
@@ -541,80 +554,6 @@
             <summary>
             Wait for input and create/edit a <see cref="T:TimeRecordingTerminal.Record"/> out of the Input
             </summary>
-        </member>
-        <member name="T:RaspberryGPIOManager.GPIOPinDriver">
-            <summary>
-            A class to control the GPIO Pins on a Raspberry PI
-            </summary>
-        </member>
-        <member name="T:RaspberryGPIOManager.GPIOPinDriver.Pin">
-            <summary>
-            P1 GPIO pins
-            </summary>
-        </member>
-        <member name="T:RaspberryGPIOManager.GPIOPinDriver.GPIODirection">
-            <summary>
-            Direction of the GPIO Pin
-            </summary>
-        </member>
-        <member name="T:RaspberryGPIOManager.GPIOPinDriver.GPIOState">
-            <summary>
-            The value (High or Low) of a GPIO pin.
-            </summary>
-        </member>
-        <member name="P:RaspberryGPIOManager.GPIOPinDriver.GPIOPin">
-            <summary>
-            Gets the GPIO pin number.
-            </summary>
-        </member>
-        <member name="P:RaspberryGPIOManager.GPIOPinDriver.Direction">
-            <summary>
-            Gets or sets the direction of of an output GPIO pin.
-            </summary>
-        </member>
-        <member name="P:RaspberryGPIOManager.GPIOPinDriver.State">
-            <summary>
-            The current value of a GPIO pin.
-            </summary>
-        </member>
-        <member name="M:RaspberryGPIOManager.GPIOPinDriver.#ctor(RaspberryGPIOManager.GPIOPinDriver.Pin)">
-            <summary>
-            Sets up an interface for accessing the specified GPIO pin with direction set to OUT and initial value to LOW.
-            </summary>
-            <param name="gpioPin">The GPIO pin to be accessed</param>
-        </member>
-        <member name="M:RaspberryGPIOManager.GPIOPinDriver.#ctor(RaspberryGPIOManager.GPIOPinDriver.Pin,RaspberryGPIOManager.GPIOPinDriver.GPIODirection)">
-            <summary>
-            Sets up an interface for accessing the specified GPIO pin with the given direction and initial value set to LOW.
-            </summary>
-            <param name="gpioPin">The GPIO pin to be accessed.</param>
-            <param name="direction">The direction the GPIO pin should have.</param>
-        </member>
-        <member name="M:RaspberryGPIOManager.GPIOPinDriver.#ctor(RaspberryGPIOManager.GPIOPinDriver.Pin,RaspberryGPIOManager.GPIOPinDriver.GPIODirection,RaspberryGPIOManager.GPIOPinDriver.GPIOState)">
-            <summary>
-            Sets up an interface for accessing the specified GPIO pin with the given direction and given initial value.
-            </summary>
-            <param name="gpioPin">The GPIO pin to be accessed.</param>
-            <param name="direction">The direction the GPIO pin should have.</param>
-            <param name="initialValue">The initial value the GPIO pin should have.</param>
-        </member>
-        <member name="M:RaspberryGPIOManager.GPIOPinDriver.Unexport">
-            <summary>
-            Unexports the GPIO interface.
-            </summary>
-        </member>
-        <member name="M:RaspberryGPIOManager.GPIOPinDriver.Dispose">
-            <summary>
-            Function in <see cref="P:RaspberryGPIOManager.GPIOPinDriver.GPIOPin"/> to Dispose the <see cref="T:RaspberryGPIOManager.GPIOPinDriver"/>.
-            </summary>
-        </member>
-        <member name="M:RaspberryGPIOManager.GPIOPinDriver.playsound(RaspberryGPIOManager.GPIOPinDriver.Pin,System.Single,System.Int32)">
-            <summary>
-            Function in <see cref="P:RaspberryGPIOManager.GPIOPinDriver.GPIOPin"/> to play a sound.
-            </summary>
-            <param name="pin">The Pin of the Buzzer (GPIO PIN!)</param>
-            <param name="duration">The time how long a single tone should last for.</param>
-            <param name="repeats">The humber of repeats</param>
         </member>
     </members>
 </doc>

@@ -110,11 +110,13 @@ namespace TimeRecordingTerminal
                     Record record;
                     if (checkRecords(queueitem.kartenNummer, out record))
                     {
+                        Notification.playsound(2);
                         record.completeRecord(queueitem.readerIDKommen, queueitem.kommen);
                         Transmit(client, record);
                     }
                     else
                     {
+                        Notification.playsound(1);
                         Transmit(client, queueitem);
                     }
                 }
@@ -204,7 +206,6 @@ namespace TimeRecordingTerminal
                     record.studentID = response.Result.Rows[0].Value.studentID;
                     record.kartenID = response.Result.Rows[0].Value.id;
                     valid = true;
-                    //RaspberryGPIOManager.GPIOPinDriver.playsound(RaspberryGPIOManager.GPIOPinDriver.Pin.GPIO22, 1, 1);
                     return record;
                 }
             }
@@ -212,7 +213,7 @@ namespace TimeRecordingTerminal
             {
                 Console.WriteLine("Invalid Cardnumber!");
                 Console.WriteLine(record.kartenNummer);
-                //RaspberryGPIOManager.GPIOPinDriver.playsound(RaspberryGPIOManager.GPIOPinDriver.Pin.GPIO22, 1, 4);
+                Notification.playsound(4);
             }
             valid = false;
             return record;

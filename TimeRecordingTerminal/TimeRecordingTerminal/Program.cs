@@ -10,7 +10,8 @@ namespace TimeRecordingTerminal
     {
         static void Main(string[] args)
         {
-
+            string path = System.IO.Directory.GetCurrentDirectory();
+            Notification.playsound(5);
             #region Menu
             Console.WriteLine("Write 'RUN' for normal mode");
             Console.WriteLine("Write 'TEST' for test mode");

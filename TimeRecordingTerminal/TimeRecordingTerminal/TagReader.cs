@@ -173,7 +173,7 @@ namespace TimeRecordingTerminal
 
             while (!last_UID.Equals("quit"))
             {
-                last_UID = Console.ReadLine();
+               last_UID = Console.ReadLine();
                 if (last_UID.Length == 10)
                 {
                     Record record = createRecord(last_UID);
